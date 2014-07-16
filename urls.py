@@ -19,4 +19,5 @@ urlpatterns = patterns('',
     ('^posts/$', 'core.views.list_posts'),
     ('^login/$', 'django.contrib.auth.views.login'),
     ('^logout/$', 'django.contrib.auth.views.logout'),
+    ('^register/$', 'core.views.register'),
 )
