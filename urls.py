@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from django.views.generic import TemplateView
 from django.contrib import admin
 import dbindexer
 
@@ -12,6 +13,10 @@ dbindexer.autodiscover()
 
 urlpatterns = patterns('',
     ('^_ah/warmup$', 'djangoappengine.views.warmup'),
-    ('^$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}),
+    ('^$', TemplateView.as_view(template_name="index.html")),
     ('^admin/', include(admin.site.urls)),
+    ('^posts/new/$', 'core.views.new_post'),
+    ('^posts/$', 'core.views.list_posts'),
+    ('^login/$', 'django.contrib.auth.views.login'),
+    ('^logout/$', 'django.contrib.auth.views.logout'),
 )
