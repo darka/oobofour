@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 
+{% block title %}Login{% endblock %}
+
 {% block content %}
 
-<h2>Login</h2>
-
-<form method="post" action="{% url "django.contrib.auth.views.login" %}">
-
-  {% csrf_token %}
-  {% bootstrap_form form layout='inline'%}
+  <h2>Login</h2>
   
-  <input type="submit" value="Login" />
-</form>
+  <form method="post" action="{% url "django.contrib.auth.views.login" %}">
+  
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline'%}
+    
+    <input type="submit" value="Login" />
+  </form>
 
 {% endblock %}

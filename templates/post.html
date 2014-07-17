@@ -3,7 +3,14 @@
   <article>
     <h1>{{ object.title }}</h1>
     {% if object.author == user %}
-      <p class="edit"><a href="/posts/{{ object.id }}/edit">Edit</a></p>
+      <ul class="list-inline">
+        <li class="edit">
+          <a href="/posts/{{ object.id }}/edit">Edit</a>
+        </li>
+        <li class="delete">
+          <a href="/posts/{{ object.id }}/delete">Delete</a>
+        </li>
+      </ul>
     {% endif %}
     <p>{{ object.content|linebreaks }}</p>
     <p class="author">by {{ object.author.username }}</p>

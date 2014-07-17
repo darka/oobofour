@@ -26,9 +26,14 @@ def new_post(request):
   if request.method == 'POST':
     form = PostForm(request.POST)
     if form.is_valid():
-      form.save(request.user)
+      form.save_with_user(request.user)
       return HttpResponseRedirect("/")
   return render(request, 'new_post.html', { 'form': form })
+
+class PostDeleteView(generic.DeleteView):
+  model = Post
+  success_url = '/'
+  template_name = 'post_delete.html'
 
 class PostDetailView(generic.DetailView):
   model = Post
@@ -40,8 +45,6 @@ class PostUpdateView(generic.UpdateView):
   template_name = 'post_edit.html'
 
 class IndexView(generic.ListView):
+  model = Post
   template_name = 'list_posts.html'
-  context_object_name = 'posts'
 
-  def get_queryset(self):
-    return Post.objects.all()
