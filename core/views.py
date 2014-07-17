@@ -20,15 +20,16 @@ def register(request):
     'form': form,
   })
 
-@login_required
-def new_post(request):
-  form = PostForm()
-  if request.method == 'POST':
-    form = PostForm(request.POST)
-    if form.is_valid():
-      form.save_with_user(request.user)
-      return HttpResponseRedirect("/")
-  return render(request, 'new_post.html', { 'form': form })
+class PostCreateView(generic.CreateView):
+  model = Post
+  form_class = PostForm
+  template_name = 'new_post.html'
+
+  def form_valid(self, form):
+    self.object = form.save(commit = False)
+    self.object.author = self.request.user
+    self.object.save
+    return super(PostCreateView, self).form_valid(form)
 
 class PostDeleteView(generic.DeleteView):
   model = Post
