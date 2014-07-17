@@ -9,6 +9,6 @@ class Post(models.Model):
   date = models.DateTimeField(auto_now_add=True)
 
   def get_absolute_url(self):
-    return u'/posts/%d' % self.id 
+    return u'/posts/{}'.format(self.id)
 
 admin.site.register(Post)

@@ -4,11 +4,5 @@ from models import Post
 class PostForm(ModelForm):
   class Meta:
     model = Post
-    exclude = ('author',)
+    exclude = ('author',) # Author is set automatically
 
-  def save_with_user(self, user):
-    post = super(PostForm, self).save(commit = False)
-    post.author = user
-    post.save()
-
-    return post

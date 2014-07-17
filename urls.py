@@ -19,13 +19,16 @@ dbindexer.autodiscover()
 
 urlpatterns = patterns('',
     ('^$', views.IndexView.as_view()),
-    ('^admin/', include(admin.site.urls)),
+
+    ('^posts/$', RedirectView.as_view(url='/')),
     ('^posts/(?P<pk>[0-9]+)/$', views.PostDetailView.as_view()),
     ('^posts/(?P<pk>[0-9]+)/edit/$', login_required(views.PostUpdateView.as_view())),
     ('^posts/(?P<pk>[0-9]+)/delete/$', login_required(views.PostDeleteView.as_view())),
     ('^posts/new/$', login_required(views.PostCreateView.as_view())),
-    ('^posts/$', RedirectView.as_view(url='/')),
+
     ('^login/$', login),
     ('^logout/$', login_required(logout)),
     ('^register/$', views.register),
+
+    ('^admin/', include(admin.site.urls)),
 )
