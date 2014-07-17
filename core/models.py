@@ -11,9 +11,4 @@ class Post(models.Model):
   def get_absolute_url(self):
     return u'/posts/%d' % self.id 
 
-class Comment(models.Model):
-  author = models.ForeignKey(User)
-  content = models.TextField()
-
 admin.site.register(Post)
-admin.site.register(Comment)
