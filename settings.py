@@ -49,9 +49,9 @@ TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 STATIC_URL = '/static/'
 
 STATICFILES_FINDERS = (
-'django.contrib.staticfiles.finders.FileSystemFinder',
-'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-'django.contrib.staticfiles.finders.DefaultStorageFinder',
+  'django.contrib.staticfiles.finders.FileSystemFinder',
+  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+  'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)

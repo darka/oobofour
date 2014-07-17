@@ -6,7 +6,7 @@ class PostForm(ModelForm):
     model = Post
     exclude = ('author',)
 
-  def save(self, user):
+  def save_with_user(self, user):
     post = super(PostForm, self).save(commit = False)
     post.author = user
     post.save()

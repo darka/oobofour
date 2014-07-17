@@ -13,7 +13,7 @@ def register(request):
     form = UserCreationForm(request.POST)
     if form.is_valid():
       new_user = form.save()
-      return HttpResponseRedirect("/posts")
+      return HttpResponseRedirect("/login")
   else:
     form = UserCreationForm()
   return render(request, "registration/register.html", {
@@ -27,18 +27,8 @@ def new_post(request):
     form = PostForm(request.POST)
     if form.is_valid():
       form.save(request.user)
-      return HttpResponseRedirect(reverse('core.views.list_posts'))
+      return HttpResponseRedirect("/")
   return render(request, 'new_post.html', { 'form': form })
-
-@login_required
-def edit_post(request):
-  form = PostForm()
-  if request.method == 'POST':
-    form = PostForm(request.POST)
-    if form.is_valid():
-      form.save(request.user)
-      return HttpResponseRedirect(reverse('core.views.list_posts'))
-  return render(request, 'edit_post.html', { 'form': form })
 
 class PostDetailView(generic.DetailView):
   model = Post
@@ -46,7 +36,7 @@ class PostDetailView(generic.DetailView):
 
 class PostUpdateView(generic.UpdateView):
   model = Post
-  fields = ['content']
+  form_class = PostForm
   template_name = 'post_edit.html'
 
 class IndexView(generic.ListView):

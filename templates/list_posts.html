@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
 <article>
     {% for post in posts %}
     <h1><a href="posts/{{ post.id }}/">{{ post.title }}</a></h1>
@@ -9,5 +8,4 @@
     <p class="author">{{ post.author.username }}</p>
     {% endfor %}
 </article>
-</div>
 {% endblock %}

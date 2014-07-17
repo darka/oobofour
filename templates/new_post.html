@@ -6,6 +6,6 @@
   <form action="{% url "core.views.new_post" %}" method="post" accept-charset="utf-8">
     {% csrf_token %}
     {% bootstrap_form form layout='inline' %}
-    <p><input type="submit" value="Post!"/></p>
+    <p><input type="submit" value="Post"/></p>
   </form>
 {% endblock %}
