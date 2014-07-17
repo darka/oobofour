@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views import generic
 from forms import PostForm
 from models import Post
 
@@ -29,6 +30,28 @@ def new_post(request):
       return HttpResponseRedirect(reverse('core.views.list_posts'))
   return render(request, 'new_post.html', { 'form': form })
 
-def list_posts(request):
-  posts = Post.objects.all()
-  return render(request, 'list_posts.html', { 'posts' : posts })
+@login_required
+def edit_post(request):
+  form = PostForm()
+  if request.method == 'POST':
+    form = PostForm(request.POST)
+    if form.is_valid():
+      form.save(request.user)
+      return HttpResponseRedirect(reverse('core.views.list_posts'))
+  return render(request, 'edit_post.html', { 'form': form })
+
+class PostDetailView(generic.DetailView):
+  model = Post
+  template_name = 'post.html'
+
+class PostUpdateView(generic.UpdateView):
+  model = Post
+  fields = ['content']
+  template_name = 'post_edit.html'
+
+class IndexView(generic.ListView):
+  template_name = 'list_posts.html'
+  context_object_name = 'posts'
+
+  def get_queryset(self):
+    return Post.objects.all()

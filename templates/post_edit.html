@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% block content %}
+  <form method="post" accept-charset="utf-8">
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline' %}
+    <p><input type="submit" value="Save"/></p>
+  </form>
+{% endblock %}

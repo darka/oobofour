@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from django.contrib.auth.models import User
 
 class Post(models.Model):
@@ -7,6 +8,12 @@ class Post(models.Model):
   content = models.TextField()
   date = models.DateTimeField(auto_now_add=True)
 
+  def get_absolute_url(self):
+    return u'/posts/%d' % self.id 
+
 class Comment(models.Model):
   author = models.ForeignKey(User)
   content = models.TextField()
+
+admin.site.register(Post)
+admin.site.register(Comment)

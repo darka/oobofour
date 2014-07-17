@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<dl>
+<div class="container">
+<article>
     {% for post in posts %}
-    <dt>{{ post.title }} (written by {{ post.author.username }})</dt>
-    <dd>{{ post.content }}</dd>
+    <h1><a href="posts/{{ post.id }}/">{{ post.title }}</a></h1>
+    <p>{{ post.content | linebreaks }}</p>
+    <p class="author">{{ post.author.username }}</p>
     {% endfor %}
-</dl>
+</article>
+</div>
 {% endblock %}

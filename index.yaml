@@ -32,3 +32,8 @@ indexes:
   - name: username
   - name: __key__
     direction: desc
+
+- kind: core_post
+  properties:
+  - name: __key__
+    direction: desc

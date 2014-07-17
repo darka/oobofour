@@ -1,7 +1,12 @@
 from django.conf.urls.defaults import *
 from django.views.generic import TemplateView
 from django.contrib import admin
+from django.contrib.auth.views import login
+from django.contrib.auth.views import logout
+from core import views
+from django.views.generic import RedirectView
 import dbindexer
+import djangoappengine
 
 handler500 = 'djangotoolbox.errorviews.server_error'
 
@@ -12,12 +17,13 @@ admin.autodiscover()
 dbindexer.autodiscover()
 
 urlpatterns = patterns('',
-    ('^_ah/warmup$', 'djangoappengine.views.warmup'),
-    ('^$', TemplateView.as_view(template_name="index.html")),
+    ('^$', views.IndexView.as_view()),
     ('^admin/', include(admin.site.urls)),
-    ('^posts/new/$', 'core.views.new_post'),
-    ('^posts/$', 'core.views.list_posts'),
-    ('^login/$', 'django.contrib.auth.views.login'),
-    ('^logout/$', 'django.contrib.auth.views.logout'),
-    ('^register/$', 'core.views.register'),
+    ('^posts/(?P<pk>[0-9]+)/$', views.PostDetailView.as_view()),
+    ('^posts/(?P<pk>[0-9]+)/edit/$', views.PostUpdateView.as_view()),
+    ('^posts/new/$', views.new_post),
+    ('^posts/$', RedirectView.as_view(url='/')),
+    ('^login/$', login),
+    ('^logout/$', logout),
+    ('^register/$', views.register),
 )
