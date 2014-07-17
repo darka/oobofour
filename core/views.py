@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, logout, login
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -12,18 +13,22 @@ def register(request):
   if request.method == 'POST':
     form = UserCreationForm(request.POST)
     if form.is_valid():
-      new_user = form.save()
-      return HttpResponseRedirect("/login")
+      username = form.cleaned_data.get('username')
+      password = form.cleaned_data.get('password2')
+      form.save()
+      user = authenticate(username=username, password=password)
+      login(request, user)
+      return HttpResponseRedirect("/")
   else:
     form = UserCreationForm()
   return render(request, "registration/register.html", {
     'form': form,
   })
 
+
 class PostCreateView(generic.CreateView):
   model = Post
   form_class = PostForm
-  template_name = 'new_post.html'
 
   def form_valid(self, form):
     self.object = form.save(commit = False)
@@ -34,18 +39,17 @@ class PostCreateView(generic.CreateView):
 class PostDeleteView(generic.DeleteView):
   model = Post
   success_url = '/'
-  template_name = 'post_delete.html'
 
 class PostDetailView(generic.DetailView):
   model = Post
-  template_name = 'post.html'
 
 class PostUpdateView(generic.UpdateView):
   model = Post
   form_class = PostForm
-  template_name = 'post_edit.html'
 
 class IndexView(generic.ListView):
   model = Post
-  template_name = 'list_posts.html'
+  
+  def get_queryset(self):
+    return Post.objects.all().order_by('-date')
 
