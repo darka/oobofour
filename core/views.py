@@ -13,14 +13,9 @@ from models import Post
 def register(request):
   if request.method == 'POST':
     form = UserCreationForm(request.POST)
-    # Automatically login after registration for a nice user experience!
     if form.is_valid():
-      username = form.cleaned_data.get('username')
-      password = form.cleaned_data.get('password2')
       form.save()
-      user = authenticate(username=username, password=password)
-      login(request, user)
-      return HttpResponseRedirect("/")
+      return HttpResponseRedirect("/login/")
   else:
     form = UserCreationForm()
   return render(request, "registration/register.html", {

@@ -1,6 +1,5 @@
 from django.conf.urls.defaults import *
 from django.views.generic import TemplateView
-from django.contrib import admin
 from django.contrib.auth.views import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import logout
@@ -10,9 +9,6 @@ import dbindexer
 import djangoappengine
 
 handler500 = 'djangotoolbox.errorviews.server_error'
-
-# django admin
-admin.autodiscover()
 
 # search for dbindexes.py in all INSTALLED_APPS and load them
 dbindexer.autodiscover()
@@ -30,5 +26,4 @@ urlpatterns = patterns('',
     ('^logout/$', login_required(logout)),
     ('^register/$', views.register),
 
-    ('^admin/', include(admin.site.urls)),
 )

@@ -13,7 +13,6 @@ AUTOLOAD_SITECONF = 'indexes'
 SECRET_KEY = '=r-$b*8hglm+858&9t043hlm6-&6-3d3vfc4((7yd0dbrakhvi'
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -65,3 +64,5 @@ LOGIN_REDIRECT_URL = '/'
 ALLOWED_HOSTS = [ 
     "oobofour.appspot.com", 
 ]
+
+AUTHENTICATION_BACKENDS = ( 'django.contrib.auth.backends.ModelBackend', )
