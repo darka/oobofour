@@ -27,8 +27,8 @@ def new_post(request):
     if form.is_valid():
       form.save(request.user)
       return HttpResponseRedirect(reverse('core.views.list_posts'))
-  return render('new_post.html', { 'form': form })
+  return render(request, 'new_post.html', { 'form': form })
 
 def list_posts(request):
   posts = Post.objects.all()
-  return render('list_posts.html', { 'posts' : posts })
+  return render(request, 'list_posts.html', { 'posts' : posts })

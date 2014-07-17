@@ -4,7 +4,7 @@ from models import Post
 class PostForm(ModelForm):
   class Meta:
     model = Post
-    exclude = ('user',)
+    exclude = ('author',)
 
   def save(self, user, commit = True):
     post = super(PostForm, self).save(commit = False)
